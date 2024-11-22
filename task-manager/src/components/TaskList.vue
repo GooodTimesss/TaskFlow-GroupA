@@ -1,11 +1,9 @@
 <template>
     <div>
-      <!-- No tasks alert -->
       <div v-if="tasks && tasks.length === 0" class="alert alert-info">
         No tasks yet! Add one to get started.
       </div>
   
-      <!-- Tasks list with transition -->
       <transition-group name="fade" tag="ul" class="list-group">
         <TaskItem 
           v-for="task in tasks" 
@@ -26,7 +24,7 @@
     props: {
         tasks: {
         type: Array,
-        default: () => [], // Ensure `tasks` defaults to an empty array
+        default: () => [], 
         },
         searchQuery: {
         type: String,
@@ -48,18 +46,18 @@
     }
 
     ul {
-        margin: 0 auto; /* Centers the list horizontally */
-        max-width: 600px; /* Limits the width for better readability */
+        margin: 0 auto; 
+        max-width: 600px; 
     }
 
     .alert {
-        margin: 20px auto; /* Centers the alert horizontally */
-        max-width: 400px; /* Limits the width of the alert */
-        padding: 15px; /* Adds some internal spacing */
-        border-radius: 5px; /* Smooth rounded corners */
-        text-align: center; /* Centers the text */
-        background-color: #dff9fb; /* Optional: Light blue background for info alert */
-        color: #0984e3; /* Optional: Blue text for better contrast */
+        margin: 20px auto; 
+        max-width: 400px; 
+        padding: 15px; 
+        border-radius: 5px; 
+        text-align: center; 
+        background-color: #dff9fb; 
+        color: #0984e3; 
     }
 </style>
 

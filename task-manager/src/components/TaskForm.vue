@@ -19,9 +19,9 @@
         Add Task
       </button>
     </form>
-  </template>
+</template>
   
-  <script>
+<script>
   export default {
     data() {
       return {
@@ -42,7 +42,7 @@
       },
     },
   };
-  </script>
+</script>
   
   
   

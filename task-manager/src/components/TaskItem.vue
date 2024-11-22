@@ -55,34 +55,30 @@
 </script>
   
 <style>
-  /* Task container */
   li.task-item {
-    display: flex; /* Flexbox for horizontal alignment */
-    justify-content: space-between; /* Space between task details and buttons */
-    align-items: center; /* Vertically align items */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     margin-bottom: 15px;
     padding: 15px;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 600px; /* Optional: Limit the width */
+    max-width: 600px; 
   }
   
-  /* Content container for task details */
   .task-content {
-    flex: 1; /* Take up available space */
-    margin-right: 15px; /* Add spacing between content and buttons */
-    min-width: 0; /* Prevent content overflow */
+    flex: 1; 
+    margin-right: 15px; 
+    min-width: 0; 
   }
   
-  /* Prevent text from overflowing */
   h5, p {
-    white-space: nowrap; /* Prevent wrapping */
-    overflow: hidden; /* Hide overflowing text */
-    text-overflow: ellipsis; /* Add ellipsis (…) to indicate overflow */
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
   }
   
-  /* Task title styling */
   h5 {
     color: #333;
     margin: 0;
@@ -90,36 +86,32 @@
   }
   
   h5.done {
-    color: #aaa; /* Gray out completed tasks */
+    color: #aaa; 
     text-decoration: line-through;
   }
   
-  /* Task description styling */
   p {
     margin: 0;
     color: #666;
   }
   
-  /* Buttons container */
   .task-buttons {
-    display: flex; /* Align buttons in a row */
-    flex-wrap: nowrap; /* Prevent buttons from wrapping */
-    gap: 10px; /* Add consistent spacing between buttons */
-    align-items: center; /* Ensure vertical alignment */
+    display: flex; 
+    flex-wrap: nowrap; 
+    gap: 10px; 
+    align-items: center; 
   }
   
-  /* Buttons styling */
   button {
-    min-width: 90px; /* Ensure buttons have consistent width */
+    min-width: 90px; 
     text-align: center;
-    transition: background-color 0.3s ease; /* Add smooth hover effect */
+    transition: background-color 0.3s ease; 
   }
   
   button:hover {
     opacity: 0.9;
   }
   
-  /* Status badge */
   .badge {
     font-size: 0.9rem;
     padding: 5px 10px;
