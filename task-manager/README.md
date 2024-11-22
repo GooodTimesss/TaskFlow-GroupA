@@ -1,24 +1,19 @@
-# task-manager
+# TaskFlow - Vue.js Project
 
-## Project setup
-```
-npm install
-```
+## Overview
+TaskFlow is a task management application built with Vue.js. Users can:
+- Add new tasks with a title and description.
+- Update task statuses (e.g., "In Progress", "Done").
+- Delete tasks.
+- Search for tasks dynamically.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Features
+- Dynamic task management with transitions.
+- Tasks are saved in local storage for persistence.
+- Clean UI designed with Bootstrap.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Setup Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
+   cd YOUR_REPOSITORY_NAME
