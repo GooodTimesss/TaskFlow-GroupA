@@ -15,5 +15,5 @@ TaskFlow is a task management application built with Vue.js. Users can:
 ## Setup Instructions
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
-   cd YOUR_REPOSITORY_NAME
+   git clone https://github.com/GooodTimesss/TaskFlow-GroupA.git
+   cd TaskFlow-GroupA
