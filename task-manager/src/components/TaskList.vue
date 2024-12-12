@@ -1,39 +1,58 @@
 <template>
-    <div>
-      <div v-if="tasks && tasks.length === 0" class="alert alert-info">
-        No tasks yet! Add one to get started.
-      </div>
-  
-      <transition-group name="fade" tag="ul" class="list-group">
-        <TaskItem 
-          v-for="task in tasks" 
-          :key="task.id" 
-          :task="task" 
-          :search-query="searchQuery"
-          @delete-task="$emit('delete-task', task.id)"
-          @update-status="$emit('update-status', task.id, $event)"
-        />
-      </transition-group>
+  <div>
+    <div v-if="error" class="alert alert-danger">
+      {{ error }}
     </div>
-</template>  
-  
-<script>
-    import TaskItem from './TaskItem.vue';
+    <div v-if="filteredTasks.length === 0" class="alert alert-info">
+      No tasks found. Try a different search query.
+    </div>
 
-    export default {
-    props: {
-        tasks: {
-        type: Array,
-        default: () => [], 
-        },
-        searchQuery: {
-        type: String,
-        default: '',
-        },
+    <transition-group name="fade" tag="ul" class="list-group">
+      <TaskItem 
+        v-for="task in filteredTasks" 
+        :key="task.id" 
+        :task="task" 
+        @delete-task="$emit('delete-task', task.id)"
+        @update-status="$emit('update-status', task.id, $event)"
+      />
+    </transition-group>
+  </div>
+</template>
+
+<script>
+import TaskItem from './TaskItem.vue';
+
+export default {
+  props: {
+    tasks: {
+      type: Array,
+      default: () => [],
     },
-    components: { TaskItem },
-    };
+    searchQuery: {
+      type: String,
+      default: '',
+    },
+    error: {
+      type: String,
+      default: '',
+    },
+  },
+  components: { TaskItem },
+  computed: {
+    filteredTasks() {
+      if (!this.searchQuery) {
+        return this.tasks;
+      }
+      const lowerQuery = this.searchQuery.toLowerCase();
+      return this.tasks.filter(task =>
+        task.title.toLowerCase().includes(lowerQuery) ||
+        task.description.toLowerCase().includes(lowerQuery)
+      );
+    },
+  },
+};
 </script>
+
 
 <style>
     .fade-enter-active, .fade-leave-active {

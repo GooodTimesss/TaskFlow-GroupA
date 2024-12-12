@@ -24,6 +24,7 @@
         >
           Done
         </button>
+
         <button 
           @click="$emit('delete-task')" 
           class="btn btn-danger btn-sm"

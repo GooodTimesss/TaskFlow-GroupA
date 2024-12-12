@@ -29,55 +29,82 @@
 </template>
 
 <script>
-  import TaskForm from './components/TaskForm.vue';
-  import TaskList from './components/TaskList.vue';
+import axios from 'axios';
+import TaskForm from './components/TaskForm.vue';
+import TaskList from './components/TaskList.vue';
 
-  export default {
-    name: 'App',
-    components: { TaskForm, TaskList },
-    data() {
-      return {
-        tasks: [],
-        searchQuery: '', 
-      };
+export default {
+  name: 'App',
+  components: { TaskForm, TaskList },
+  data() {
+    return {
+      tasks: [], // Task list fetched from the backend
+      searchQuery: '', // Search query for filtering tasks
+      loading: false, // Loading state
+      error: null, // Error message
+    };
+  },
+  computed: {
+    filteredTasks() {
+      const query = this.searchQuery.toLowerCase();
+      return this.tasks.filter(task => 
+        task.title.toLowerCase().includes(query) || 
+        task.description.toLowerCase().includes(query)
+      );
     },
-    computed: {
-      filteredTasks() {
-        const query = this.searchQuery.toLowerCase();
-        return this.tasks.filter(task => 
-          task.title.toLowerCase().includes(query) || 
-          task.description.toLowerCase().includes(query)
-        );
-      },
+  },
+  methods: {
+    async fetchTasks() {
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axios.get('http://localhost:5000/tasks');
+        this.tasks = response.data;
+      } catch (error) {
+        this.error = 'Failed to fetch tasks. Please try again.';
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
     },
-    methods: {
-      addTask(newTask) {
-        this.tasks.push(newTask);
-      },
-      deleteTask(id) {
+    async addTask(newTask) {
+      this.error = null;
+      try {
+        const response = await axios.post('http://localhost:5000/tasks', newTask);
+        this.tasks.push(response.data);
+      } catch (error) {
+        this.error = 'Failed to add task. Please try again.';
+        console.error(error);
+      }
+    },
+    async deleteTask(id) {
+      this.error = null;
+      try {
+        await axios.delete(`http://localhost:5000/tasks/${id}`);
         this.tasks = this.tasks.filter(task => task.id !== id);
-      },
-      updateTaskStatus(id, status) {
-        const task = this.tasks.find(task => task.id === id);
-        if (task) task.status = status;
-      },
-      clearSearch() {
-        this.searchQuery = ''; 
-      },
+      } catch (error) {
+        this.error = 'Failed to delete task. Please try again.';
+        console.error(error);
+      }
     },
-    mounted() {
-      const savedTasks = JSON.parse(localStorage.getItem('tasks'));
-      if (savedTasks) this.tasks = savedTasks;
-    },
-    watch: {
-      tasks: {
-        handler(newTasks) {
-          localStorage.setItem('tasks', JSON.stringify(newTasks));
-        },
-        deep: true,
-      },
-    },
-  };
+    async updateTaskStatus(id, status) {
+      this.error = null;
+      try {
+        // Make the API request to update the status
+        await axios.put(`http://localhost:5000/tasks/${id}`, { status });
+
+        // Re-fetch tasks to get the updated list
+        await this.fetchTasks();
+      } catch (error) {
+        this.error = 'Failed to update task status. Please try again.';
+        console.error(error);
+      }
+    }
+  },
+  async mounted() {
+    await this.fetchTasks();
+  },
+};
 </script>
 
 <style>
